@@ -4,7 +4,7 @@ require "pry"
 
 require "cooking_time/version"
 require_relative "cooking_time/cli.rb"
-require_relative "cooking_time/scrapper.rb"
+require_relative "cooking_time/scraper.rb"
 
 
 module CookingTime
