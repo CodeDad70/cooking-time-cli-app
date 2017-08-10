@@ -1,7 +1,6 @@
 class CookingTime::CLI
 
   def welcome
-    @recipes = CookingTime::Scraper.recipes
     puts "It's Cooking Time !"
     menu
     navigation
@@ -26,13 +25,17 @@ class CookingTime::CLI
 
 
   def navigation
-    input = nil  
+    # @recipes = CookingTime::Scraper.recipes
+    input = nil 
+    @time_select = nil 
     while input == nil
     puts "Make a selection : 1 - 6"
     
     input = gets.strip
 
     if input.to_i == 1
+      time_select = 5
+      CookingTime::Scraper.scrape_recipes(time_select)
     else 
       menu
 
