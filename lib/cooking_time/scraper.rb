@@ -1,4 +1,4 @@
-class CookingTime::Scraper5
+class CookingTime::Scraper
   attr_accessor :name, :difficulty, :time
 
     def self.recipes
@@ -13,9 +13,9 @@ class CookingTime::Scraper5
     end
 
     def self.scrape_recipes
-      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,5.html"))
+      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,#{5}.html"))
       recipe = self.new
-      binding.pry
+      # binding.pry
 
       recipe
       
@@ -27,3 +27,4 @@ class CookingTime::Scraper5
 
 
   # name = doc.search("a.br_textepetit").first.text
+  # difficulty = doc.search("td.br_textepetit").first.text
