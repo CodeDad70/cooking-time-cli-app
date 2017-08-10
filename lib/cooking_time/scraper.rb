@@ -1,6 +1,0 @@
-class CookingTime::Scraper
-
-
-
-
-end

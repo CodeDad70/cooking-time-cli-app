@@ -1,0 +1,46 @@
+﻿.br_titre {color:#B81818; font-family:Tahoma, Verdana,sans-serif; font-size:11px; font-weight: bold; font-style: normal;}
+a.br_titre {text-decoration:none;}
+
+.br_menu {color:#B81818; font-family:Tahoma,sans-serif; font-size:9px; font-style: normal; font-weight: bold; text-decoration: none;}
+.br_menupetit {color:#B81818; font-family:Tahoma,sans-serif; font-size:9px; font-style: normal; font-weight: bold; text-decoration: none;}
+
+.br_soustitre { color:#B81818; font-family: Georgia, Tahoma, sans-serif; font-size:16px; font-style: italic; font-weight:bold; }
+a.br_soustitre:hover { text-decoration: underline; }
+
+.br_texte {color:#000000; font-family:Arial,sans-serif; font-size:12px; font-style: normal; font-weight:normal; }
+a.br_texte {text-decoration:underline; }
+
+.br_textepetit {color:#000000; font-family:Arial,sans-serif; font-size:11px; font-style: normal; font-weight:normal; }
+a.br_textepetit {text-decoration:underline; }
+
+.br_libelle {color:#000000; font-family:Arial,sans-serif; font-size:11px; font-style: normal; font-weight:bold; }
+
+.br_legende {color:#000000; font-family:Arial,sans-serif; font-size:10px; font-style: normal; font-weight:normal; }
+a.br_legende {text-decoration:underline; }
+
+.br_auteur {color:#000000; font-family:Arial,sans-serif; font-size:10px; font-style: normal; font-weight:normal; }
+
+a.br_nav {color:#FFFFFF; font-family:Verdana,sans-serif; font-size:10px; font-style: normal; font-weight: bold;}
+a.br_nav, a.br_nav:hover { text-decoration: none;}
+td.br_nav2 { font-family: Verdana, Arial, sans-serif; font-size: 10px; font-style: normal; font-weight:bold; background-color: #B81818; color:#FFFFFF; padding:2px; BORDER-BOTTOM: 1px solid #B81818; }
+a.br_nav2 { font-family: Verdana, Arial, sans-serif; font-size: 10px; font-style: normal; font-weight:bold; background-color: #B81818; color:#FFFFFF; text-decoration:none; }
+a.br_nav2:hover { text-decoration:underline; }
+
+.br_recette {BORDER-RIGHT: #999999 1px solid;PADDING-RIGHT: 0px;BORDER-TOP: #999999 1px solid;PADDING-LEFT: 2px;FONT-WEIGHT: normal;FONT-SIZE: 8pt;PADDING-BOTTOM: 2px;MARGIN: 0px;BORDER-LEFT: #999999 1px solid;PADDING-TOP: 1px;BORDER-BOTTOM: #999999 1px solid;FONT-FAMILY: tahoma,arial,verdana,sans-serif;BACKGROUND-COLOR: #FFFFF1;CURSOR: hand;}
+
+.br_input { font-family: Verdana, Arial, sans-serif; font-size: 11px; font-style: normal; background-color: #FFFFFF; color:#000000; border-width:1px; BORDER-LEFT: #999999 1px solid; BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid;}
+
+td.af_pagnav_td  {color:#000000; font-family:Verdana,sans-serif; font-size:11px; font-style: normal; font-weight: bold; width:8px;}
+a.af_pagnav_lien {color:#B81818; font-family:Verdana,sans-serif; font-size:11px; font-style: normal; font-weight: bold; width:8px;}
+
+.br_sousmenuhom {  font-family: Arial, HelveticaNeue, sans-serif; font-size: 9px; font-weight: normal; color: #CC0000; text-decoration: underline}
+.br_smBhp {  font-family: Arial, sans-serif; font-size: 9px; font-weight: normal; color: #FFFFFF; text-decoration: underline}.boursetitre {  font-family: Arial, sans-serif; font-size: 11px; font-weight: normal; color: B81818}
+.boursetxt {  font-family: Arial, sans-serif; font-size: 11px; color: #FFFFFF}
+.mr_vert {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px; font-weight: bold; color: FCA22D}
+.marche_nav {  font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; color: #FFFFFF; text-decoration: underline}
+
+.br_textefiche, a.br_addlink {color:#000000; font-family:Arial,sans-serif; font-size:13px; font-style: normal; font-weight:normal; text-decoration:none; }
+a.br_textefiche {text-decoration:underline; }
+a.br_addlink:hover {text-decoration:underline; }
+
+.br_hpTitre {color:#FFFFFF; font-family:Verdana, Arial, sans-serif; font-size:10px; font-style: normal; font-weight: bold; text-decoration:none; BACKGROUND-COLOR:#9e1412}

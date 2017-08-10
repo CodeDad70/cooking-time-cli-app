@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://cdn.digitru.st/prod/1.4.0/dt.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <script src="./digitrust-server.js"></script>
+    <script>
+
+        var cookieKey = configGeneral.cookie.digitrust.userObjectKey;
+        var userJSON = DigiTrustCookie.getIdentityCookieJSON(cookieKey);
+
+        function messageHandler(evt) {
+            switch (evt.data.type) {
+                case 'DigiTrust.identity.request':
+                    var digiTrustUserCookie = DigiTrustCookie.getCookieByName(configGeneral.cookie.digitrust.userObjectKey);
+                    var digiTrustUserJSON = digiTrustUserCookie ?
+                        DigiTrustCookie.unobfuscateCookieValue(digiTrustUserCookie) : {};
+                    var isOptOut = DigiTrustCookie.getCookieByName(configGeneral.cookie.digitrust.optout);
+                    digiTrustUserJSON = isOptOut ? configGeneral.cookie.digitrust.optoutUser : digiTrustUserJSON;
+                        
+                        var sendMessage = function (messageValue) {
+                            var messageType = evt.data.syncOnly ?
+                                'DigiTrust.identity.response.syncOnly' :
+                                'DigiTrust.identity.response';
+                            var identity = {
+                                version: 1,
+                                type: messageType,
+                                value: messageValue
+                            };
+                            window.parent.postMessage(identity, evt.origin);
+                        }
+
+                        if ((!isOptOut) && (helpers.isEmpty(digiTrustUserJSON))) {
+                            // see if we can write and read cookies from within the iframe
+                            DigiTrustCookie.createUserCookiesOnDigitrustDomain();
+                            digiTrustUserJSON = DigiTrustCookie.getIdentityCookieJSON(cookieKey);
+                        }
+                        if (digiTrustUserJSON.hasOwnProperty('id')) {
+                            DigiTrustCrypto.encrypt(digiTrustUserJSON.id, function (encryptedUserId) {
+                                digiTrustUserJSON.id = encryptedUserId;
+                                digiTrustUserJSON.keyv = DigiTrustCrypto.getKeyVersion();
+                                sendMessage(digiTrustUserJSON);
+                            });
+                        } else {
+                            sendMessage(digiTrustUserJSON);
+                        }
+                    break;
+                case 'DigiTrust.identity.reset':
+                    var DE = DigiTrustCookie.getCookieByName(configGeneral.cookie.digitrust.resetKey);
+                    if (DE === 'true') {
+                        DigiTrustCookie.expireCookie(configGeneral.cookie.digitrust.resetKey);
+                        DigiTrustCookie.expireCookie(configGeneral.cookie.digitrust.userObjectKey);
+                        DigiTrustCookie.expireCookie(configGeneral.cookie.publisher.userObjectKey);
+                    }
+                    break;
+                case 'DigiTrust.identity.optOut':
+                    var sendMessage = function (messageValue) {
+                        var identity = {
+                            version: 1,
+                            type: 'DigiTrust.identity.optOutResponse',
+                            value: messageValue
+                        };
+                        window.parent.postMessage(identity, evt.origin);
+                    };
+
+                    var digiTrustUserCookie = DigiTrustCookie.getCookieByName(configGeneral.cookie.digitrust.userObjectKey);
+
+                    if (helpers.isEmpty(digiTrustUserCookie)) {
+                        sendMessage({
+                            success: false,
+                            errorMessage: "DigiTrust user cookie does not exist"
+                        });
+                    } else {
+                        var challengeString = helpers.generateUserId();
+                        DigiTrustCookie.setChallengeCookie(challengeString);
+                        DigiTrustCrypto.encrypt(challengeString, function (challengeStringEncrypted) {
+                            sendMessage({
+                                success: true,
+                                keyv: DigiTrustCrypto.getKeyVersion(),
+                                challenge: challengeStringEncrypted
+                            });
+                        });
+                    }
+                    break;
+                case 'DigiTrust.identity.optOutSolution':
+                    var responseOptions = {};
+                    var solution = evt.data.value && evt.data.value.solution ? evt.data.value.solution : null;
+                    var sendMessage = function (messageValue) {
+                        var identity = {
+                            version: 1,
+                            type: 'DigiTrust.identity.optOutSolutionResponse',
+                            value: messageValue
+                        };
+                        window.parent.postMessage(identity, evt.origin);
+                    };
+
+                    var origChal = DigiTrustCookie.getCookieByName(configGeneral.cookie.digitrust.challenge);
+
+                    if (origChal == solution) {
+                        responseOptions = {
+                            success: true
+                        };
+                        DigiTrustCookie.setOptout(true);
+                    } else {
+                        responseOptions = {
+                            success: false,
+                            errorMessage: 'Incorrect solution'
+                        };
+                    }
+                    sendMessage(responseOptions);
+                    break;
+                case 'DigiTrust.getAppsPreferences.request':
+                    var appData = DigiTrustAppContainer.server.getAppForMember(evt.data.value.member);
+                    var identity = {
+                        version: 1,
+                        type: 'DigiTrust.getAppsPreferences.response',
+                        value: appData
+                    };
+                    window.parent.postMessage(identity, evt.origin);
+                    break;
+                case 'DigiTrust.setAppsPreferences.request':
+                    var success;
+                    if (DigiTrustAppContainer.server.setAppForMember(evt.data.value.member, evt.data.value.app)) {
+                        success = true;
+                    } else {
+                        success = false;
+                    }
+                    var identity = {
+                        version: 1,
+                        type: 'DigiTrust.setAppsPreferences.response',
+                        value: {
+                            success: success,
+                            app: evt.data.value.app
+                        }
+                    };
+                    window.parent.postMessage(identity, evt.origin);
+                    break;
+            }
+        }
+
+        if (window.addEventListener) {
+            window.addEventListener('message', messageHandler, false);
+        } else {
+            window.attachEvent('onmessage', messageHandler);
+        }
+
+        // Iframe JavaScript is loaded, send READY message to parent
+        var iframeReady = {
+            version: 1,
+            type: 'DigiTrust.iframe.ready',
+            value: {}
+        };
+        window.parent.postMessage(iframeReady, document.referrer);
+
+    </script>
+</head>
+<body>
+</body></html>
