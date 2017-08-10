@@ -13,10 +13,17 @@ class CookingTime::Scraper5
     end
 
     def self.scrape_recipes
-      doc = Nokogiri::HTML(open("Recipes by preparation time - The Cook Book - sofeminine.html"))
+      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,5.html"))
+      recipe = self.new
+      binding.pry
+
+      recipe
       
 
     end
 
 
   end
+
+
+  # name = doc.search("a.br_textepetit").first.text
