@@ -3,35 +3,36 @@ class CookingTime::Scraper
 
     @all_recipes = []
 
-    def self.recipes
+    def self.recipe
+      @recipe = recipe.new
 
-      self.scrape_recipes
     end
 
-    def self.scrape_recipes
+    
+
+    def self.scrape_recipes(time_select) 
       
-      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,5.html")) 
+      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,#{time_select}.html")) 
       doc.css("td.af_baseS").each do |recipe_list|
         recipe = self.new
-
-
-        recipe.name = recipe_list.search("a.br_textepetit").text
+        recipe.name = recipe_list.search("a.br_textepetit").text.gsub("Recipe","")
         recipe.url = recipe_list.search("a").attr("href").text
-        @all_recipes << recipe
         
+        @all_recipes << recipe    
+
       end
       
-      binding.pry
     end
+
+    def self.list_recipes
+      @all_recipes.each_with_index do |name, number|
+        if number < 25
+        puts "#{number+1} – #{@all_recipes[number].name}"
+      end
+      end
+    end
+
   
   end
 
-  # doc.css("div#af_tdContenu td.af_baseS").each do |recipes|
-  # name = doc.search("a.br_textepetit").first.text.gsub("Recipe", "")
-  # difficulty = doc.search("td.br_textepetit").first.text
-  #url = doc.search("td.af_baseS a").attr("href").text
-
-
-  #-------------------2nd try ----------------
-
-  # url = recipes.search("a").attr("href").text
+  

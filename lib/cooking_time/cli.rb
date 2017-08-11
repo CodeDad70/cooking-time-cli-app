@@ -1,4 +1,5 @@
 class CookingTime::CLI
+  attr_accessor :all_recipes
 
   def welcome
     puts "It's Cooking Time !"
@@ -36,6 +37,9 @@ class CookingTime::CLI
       
       if time_check.include?(time_select) 
         CookingTime::Scraper.scrape_recipes(time_select)
+        recipe_list = @all_recipes
+        
+
       elsif input == "q"
         goodbye
       else 
@@ -43,12 +47,17 @@ class CookingTime::CLI
         main_menu
       end
     end
+
   end
     
   def recipe_finder
-    puts"Let's pick a recipe ! "
+    puts "Let's get cooking ! Select a recipe"
+    CookingTime::Scraper.list_recipes
+      
+     
+    end
 
-  end
+  
  
   def goodbye
     puts"goodbye"
