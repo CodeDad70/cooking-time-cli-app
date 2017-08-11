@@ -3,8 +3,7 @@ class CookingTime::CLI
   def welcome
     puts "It's Cooking Time !"
     menu
-    user_input
-    navigation
+    main_menu
     recipe_finder
     goodbye
   end
@@ -25,13 +24,13 @@ class CookingTime::CLI
      DOC
   end
 
-  def user_input
+  def main_menu
     time_check = [5, 10, 15, 20, 30, 45]
     input = nil
     time_select = nil 
     while input == nil 
       puts "Enter the number of minutes you have to cook - 5, 10, 15, 20, 30 or 45"
-      puts "Or enter q to quit"
+      puts "Or enter q to Quit"
       input = gets.strip
       time_select = input.to_i
       
@@ -41,26 +40,15 @@ class CookingTime::CLI
         goodbye
       else 
         puts "Oops! Please select number of minutes from the list" 
-        user_input
+        main_menu
       end
     end
-    navigation
   end
     
+  def recipe_finder
+    puts"Let's pick a recipe ! "
 
-  def navigation
-      input = nil
-      input = gets.strip
-      puts "Enter q to quit"
-      puts "Enter m to return to main menu"
-      if input.downcase == "q"
-        goodbye
-      elsif input.downcase == "m"
-        menu
-      end
-    end
-
-
+  end
  
   def goodbye
     puts"goodbye"
