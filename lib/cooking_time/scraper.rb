@@ -15,12 +15,9 @@ class CookingTime::Scraper
       doc.css("td.af_baseS").each do |recipe_list|
         recipe = self.new
         recipe.name = recipe_list.search("a.br_textepetit").text.gsub("Recipe","")
-        recipe.url = recipe_list.search("a").attr("href").text
-        
+        recipe.url = recipe_list.search("a").attr("href").text 
         @all_recipes << recipe    
-
-      end
-      
+      end     
     end
 
     def self.list_recipes
@@ -30,7 +27,13 @@ class CookingTime::Scraper
     end
 
     def self.show_recipe(choice)
-      puts"here is your recipe ! #{choice}"
+      @all_recipes.each_with_index do |name, number|
+      if choice -1 == number
+        show_recipe = @all_recipes[number].url
+
+        binding.pry
+      end
+     end
 
     end
 
