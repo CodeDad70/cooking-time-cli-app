@@ -9,14 +9,19 @@ class CookingTime::Scraper
     end
 
     def self.scrape_recipes
-      recipe = self.new
       
       doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,5.html")) 
       doc.css("td.af_baseS").each do |recipe_list|
+        recipe = self.new
+
+
         recipe.name = recipe_list.search("a.br_textepetit").text
         recipe.url = recipe_list.search("a").attr("href").text
-        recipe
+        @all_recipes << recipe
+        
       end
+      
+      binding.pry
     end
   
   end
