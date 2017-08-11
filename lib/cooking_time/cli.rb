@@ -38,8 +38,6 @@ class CookingTime::CLI
       if time_check.include?(time_select) 
         CookingTime::Scraper.scrape_recipes(time_select)
         recipe_list = @all_recipes
-        
-
       elsif input == "q"
         goodbye
       else 
@@ -51,9 +49,20 @@ class CookingTime::CLI
   end
     
   def recipe_finder
+    number_check = [1..25]
+    recipe_select = nil
+    input = nil
     puts "Let's get cooking ! Select a recipe"
     CookingTime::Scraper.list_recipes
-      
+    while input == nil
+      puts "Select the number for the recipe you'd like to see "
+      puts "Or enter q to Quit - m for Main Menu"
+    input =gets.strip
+    recipe_select = input.to_i
+#     if number_check.include? recipe_select
+
+# end
+      end
      
     end
 
