@@ -3,6 +3,7 @@ class CookingTime::CLI
 
   def welcome
     puts "It's Cooking Time !"
+    CookingTime::Scraper.clear_all
     menu
     main_menu
     recipe_finder
@@ -49,7 +50,7 @@ class CookingTime::CLI
   end
     
   def recipe_finder
-    number_check = [1..25]
+    number_check = [1..150]
     recipe_select = nil
     input = nil
     puts "Let's get cooking ! Select a recipe"
@@ -59,11 +60,18 @@ class CookingTime::CLI
       puts "Or enter q to Quit - m for Main Menu"
     input =gets.strip
     recipe_select = input.to_i
-#     if number_check.include? recipe_select
+    if number_check.include?(recipe_select)
+      CookingTime::Scraper.show_recipe
+    elsif input == "q"
+      goodbye
+    elsif input == "m"
+      welcome
+    else 
+      puts "Oops! Please select a number for the recipe you'd like to see "
+      recipe_finder
 
-# end
       end
-     
+     end
     end
 
   

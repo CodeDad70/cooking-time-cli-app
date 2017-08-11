@@ -3,10 +3,9 @@ class CookingTime::Scraper
 
     @all_recipes = []
 
-    # def self.recipe
-    #   @recipe = recipe.new
-
-    # end
+    def self.clear_all
+      @all_recipes.clear
+    end
 
     
 
@@ -26,11 +25,14 @@ class CookingTime::Scraper
 
     def self.list_recipes
       @all_recipes.each_with_index do |name, number|
-        puts "#{number+1} – #{@all_recipes[number].name}" 
+        puts "#{number+1} – #{@all_recipes[number].name}" if number < 75
       end
     end
 
     def self.show_recipe(choice)
+      puts"here is your recipe ! #{choice}"
+
+    end
 
 
   
