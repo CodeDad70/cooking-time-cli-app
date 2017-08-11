@@ -27,9 +27,18 @@ class CookingTime::Scraper
     end
 
     def self.show_recipe(choice)
+      print_recipe = self.new
       @all_recipes.each_with_index do |name, number|
       if choice -1 == number
-        show_recipe = @all_recipes[number].url
+        doc = Nokogiri::HTML(open(@all_recipes[number].url)) 
+        print_recipe.name = doc.search("span.fn").text
+        print_recipe.type = doc.search("span.recipeType").text
+        print_recipe.prep_time = doc.search("span.preptime").text
+        print_recipe.ingredients = doc.search("span.ingredient").text.split("\r")
+        print_recipe.instructions = doc.search("span.instructions").text
+        print_recipe
+
+        
 
         binding.pry
       end
@@ -37,6 +46,7 @@ class CookingTime::Scraper
 
     end
 
+    # recipe print name = doc.search("span.fn").text
 
   
   end
