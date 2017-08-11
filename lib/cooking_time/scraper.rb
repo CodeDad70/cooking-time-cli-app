@@ -13,9 +13,10 @@ class CookingTime::Scraper
     end
 
     def self.scrape_recipes(time_select)
-      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,#{time_select}.html"))
+      # doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,#{time_select}.html"))
       recipe = self.new
-      binding.pry
+      puts "here are your recipes that are #{time_select} long"
+      # binding.pry
 
       recipe
       
