@@ -15,7 +15,7 @@ class CookingTime::Scraper
       doc.css("td.af_baseS").each do |recipe_list|
         recipe.name = recipe_list.search("a.br_textepetit").text
         recipe.url = recipe_list.search("a").attr("href").text
-        @all_recipes << recipe
+        recipe
       end
     end
   
