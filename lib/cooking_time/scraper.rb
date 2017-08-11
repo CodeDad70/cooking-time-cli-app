@@ -1,7 +1,7 @@
 class CookingTime::Scraper
   attr_accessor :name, :difficulty, :url
 
-    @recipe = []
+    
 
     def self.recipes
       self.scrape_recipes
@@ -14,21 +14,19 @@ class CookingTime::Scraper
     # end
 
     def self.scrape_recipes
-      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,5.html"))
-      doc.each do |recipe|
-      @recipe = recipe
+      recipes =[]
+      doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,5.html")) 
+      doc.search("td.af_baseS").each do |recipes|
       
-      recipe.name = doc.search("a.br_textepetit").first.text.gsub("Recipe", "")
-      recipe.difficulty = doc.search("td.br_textepetit").first.text
-      recipe.url = doc.search("td.af_baseS a").attr("href").text
+      recipe_name = doc.search("a.br_textepetit").first.text.gsub("Recipe", "")
+      recipe_difficulty = doc.search("td.br_textepetit").first.text
+      recipe_url = doc.search("td.af_baseS a").attr("href").text
       
+      recipes << {name: recipe_name, difficulty: recipe_difficulty, url: recipe_url}
       
-
-      @all_recipes << recipe
+      end
+      recipes
       binding.pry
-      
-    end
-    recipe
     end
 
   end
