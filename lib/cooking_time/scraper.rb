@@ -35,7 +35,7 @@ class CookingTime::Scraper
         recipe.name = doc.search("span.fn").text
         recipe.type = doc.search("span.recipeType").text
         recipe.prep_time = doc.search("span.preptime").text
-        recipe.ingredients = doc.search("span.ingredient").text.split("\r").join
+        recipe.ingredients = doc.search("span.ingredient").text.gsub("\r", ", ")
         recipe.instructions = doc.search("span.instructions").text
 
         puts <<-DOC
