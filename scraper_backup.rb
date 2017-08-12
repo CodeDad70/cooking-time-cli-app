@@ -1,5 +1,5 @@
 class CookingTime::Scraper
-  attr_accessor :name, :url
+  attr_accessor :url, :name, :type, :prep_time, :ingredients, :instructions
 
     @all_recipes = []
 
@@ -14,10 +14,21 @@ class CookingTime::Scraper
       doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,#{time_select}.html")) 
       doc.css("td.af_baseS").each do |recipe_list|
         recipe = self.new
-        recipe.name = recipe_list.search("a.br_textepetit").text.gsub("Recipe","")
-        recipe.url = recipe_list.search("a").attr("href").text 
+        recipe.url = recipe_list.search("a").attr("href").text
+        
+        format_recipe = Nokogiri::HTML(open(recipe.url))
+        
+        
+        recipe.name = format_recipe.search("span.fn").text
+        recipe.type = format_recipe.search("span.recipeType").text
+        recipe.prep_time = format_recipe.search("span.preptime").text
+        recipe.ingredients = format_recipe.search("span.ingredient").text
+        recipe.instructions = format_recipe.search("span.instructions").text
+        
+       
         @all_recipes << recipe    
-      end     
+      end    
+      binding.pry 
     end
 
     def self.list_recipes
@@ -26,28 +37,10 @@ class CookingTime::Scraper
       end
     end
 
-    def self.show_recipe(choice)
-      print_recipe = self.new
-      @all_recipes.each_with_index do |name, number|
-      if choice -1 == number
-        doc = Nokogiri::HTML(open(@all_recipes[number].url)) 
-        print_recipe.name = doc.search("span.fn").text
-        print_recipe.type = doc.search("span.recipeType").text
-        print_recipe.prep_time = doc.search("span.preptime").text
-        print_recipe.ingredients = doc.search("span.ingredient").text.split("\r")
-        print_recipe.instructions = doc.search("span.instructions").text
-        print_recipe
 
         
 
-        binding.pry
-      end
-     end
-
-    end
-
-    # recipe print name = doc.search("span.fn").text
-
+     
   
   end
 
