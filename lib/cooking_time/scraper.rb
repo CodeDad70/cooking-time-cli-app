@@ -36,7 +36,8 @@ class CookingTime::Scraper
         recipe.type = doc.search("span.recipeType").text
         recipe.prep_time = doc.search("span.preptime").text
         recipe.ingredients = doc.search("span.ingredient").text.gsub("\r", ", ")
-        recipe.instructions = doc.search("span.instructions").text
+        recipe.instructions = doc.search("span.instructions").text.gsub("\r", " ")
+        
 
         puts <<-DOC
         --#{recipe.name.upcase}-- 
