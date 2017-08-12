@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cooking_time (0.1.0)
+    cooking_time (1.0.0)
       nokogiri
 
 GEM
