@@ -28,6 +28,7 @@ class CookingTime::Scraper
 
     def self.show_recipe(choice)
       recipe = self.new
+      input = nil 
       @all_recipes.each_with_index do |name, number|
       if choice -1 == number
         doc = Nokogiri::HTML(open(@all_recipes[number].list_url)) 
@@ -51,20 +52,21 @@ class CookingTime::Scraper
         INSTRUCTIONS —  
         #{recipe.instructions}
 
+
+        Enter q to Quit - m for Main Menu
+
         DOC
 
-        
-        
-
-      
+        input = gets.strip
+        if input == "q"
+          exit
+        elsif input == "m"
+          CookingTime::CLI.new.welcome
+        end
       end
      end
-
     end
 
-    # recipe print name = doc.search("span.fn").text
-
-  
   end
 
    
