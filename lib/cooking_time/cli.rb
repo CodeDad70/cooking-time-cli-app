@@ -11,11 +11,11 @@ class CookingTime::CLI
   end
 
   def menu 
-    puts <<-DOC
+    puts <<~DOC
      
      How much time have you got ?
 
-     I'm hangry - keep it simple (5 min.)
+     I'm hangry - feed me fast!!! (5 min.)
      Sooner than later please (10 min.)
      Let's make it fast - but not an emergency (15 min.)
      Let's make something nice (20 min.)
@@ -79,7 +79,5 @@ class CookingTime::CLI
     puts"C-Ya!"
     exit
   end
-
-
 
 end

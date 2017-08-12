@@ -7,10 +7,7 @@ class CookingTime::Scraper
       @all_recipes.clear
     end
 
-    
-
     def self.scrape_recipes(time_select) 
-      
       doc = Nokogiri::HTML(open("http://www.sofeminine.co.uk/world/cuisine/boitearecettes/id__t,#{time_select}.html")) 
       doc.css("td.af_baseS").each do |recipe_list|
         list_recipe = self.new
@@ -39,7 +36,7 @@ class CookingTime::Scraper
         recipe.instructions = doc.search("span.instructions").text.gsub("\r", " ")
         
 
-        puts <<-DOC
+        puts <<~DOC
         --#{recipe.name.upcase}-- 
         #{recipe.type}       
         
@@ -59,6 +56,7 @@ class CookingTime::Scraper
 
         input = gets.strip
         if input == "q"
+          puts "C-Ya!"
           exit
         elsif input == "m"
           CookingTime::CLI.new.welcome
