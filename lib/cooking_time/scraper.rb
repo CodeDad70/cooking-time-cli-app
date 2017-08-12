@@ -43,7 +43,6 @@ class CookingTime::Scraper
         --#{recipe.name.upcase}-- 
         #{recipe.type}       
         
-        PREP TIME —  
         #{recipe.prep_time}
         
         INGREDIENTS —  
