@@ -1,1 +1,0 @@
-﻿crtg_content = ''; (function(){document.cookie = 'crtg_rta=' + escape(crtg_content) + '; path=/; expires=Sat, 09 Sep 2017 18:02:53 GMT; domain=sofeminine.co.uk';})();
